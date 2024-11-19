@@ -34,14 +34,12 @@ def generate_tank_data(tank_id: int, current_time: float) -> dict:
 
 
 @app.function_name("GenerateData")
-@app.generic_output_binding(
+@app.sql_output(
     arg_name="sensorData",
-    type="sql",
-    CommandText="dbo.SensorData",
-    ConnectionStringSetting="SqlConnectionString",
-    data_type=DataType.STRING,
+    command_text="[dbo].[SensorData]",
+    connection_string_setting="SqlConnectionString",
 )
-@app.schedule(schedule="*/30 * * * * *", arg_name="myTimer", run_on_startup=True, use_monitor=False)
+@app.schedule(schedule="*/30 * * * * *", arg_name="myTimer", run_on_startup=False, use_monitor=False)
 def sensor_data_generator(myTimer: func.TimerRequest, sensorData: func.Out[func.SqlRowList]) -> None:
     current_time = time.time()
 
@@ -49,9 +47,9 @@ def sensor_data_generator(myTimer: func.TimerRequest, sensorData: func.Out[func.
     for i in range(TANKS_NUM):
         data = generate_tank_data(i + 1, current_time)
         rows.append(func.SqlRow(data))
-        logging.info(generate_tank_data(i + 1, current_time))
 
-    sensorData.set(rows)
+    logging.info("Data Simulated")
+    sensorData.set(func.SqlRowList(rows))
 
 
 @app.function_name("ProcessData")

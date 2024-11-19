@@ -4,6 +4,8 @@ This repository contains the code written for Coursework 2 of COMP3211 Distribut
 
 The script `function_app.py` contains Azure Functions designed to simulate the practical challenge of monitoring the environmental conditions of a scalable number of fish tanks in a tropical fish shop. This workflow showcases the application of Azure serverless functions for real-time monitoring and aggregation of sensor data, in the context of ensuring stable and healthy conditions of aquatic environments. In such a setting, scalability and availability of a solution is important, due to the importance of environment monitoring and the potential for continual addition of fish tanks with business growth.
 
+**Note:** This code is the initial state of the application/simulation, before increased number of tanks and time-triggered invocations for scalability demonstration.
+
 ## Azure Functions
 
 1. Time-triggered Data Simulation Function
